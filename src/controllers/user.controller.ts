@@ -12,10 +12,10 @@ export const UserController = {
     }
   },
 
-  getUserByEmail: async (req: Request, res: Response) => {
+  getUser: async (req: AuthRequest, res: Response) => {
     try {
-      const { email } = req.params;
-      const user = await UserService.findByEmail(email as string);
+      const id = req.user?.userId;
+      const user = await UserService.findById(id as number);
       res.status(200).json(user);
     } catch (error) {
       res.status(500).json({ message: "Erro ao buscar usuário." });

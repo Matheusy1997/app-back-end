@@ -7,8 +7,8 @@ export const UserService = {
     return prisma.user.findMany();
   },
 
-  findByEmail: async (email: string): Promise<User | null> => {
-    return prisma.user.findUnique({ where: { email } });
+  findById: async (id: number): Promise<User | null> => {
+    return prisma.user.findUnique({ where: { id } });
   },
 
   create: async (
