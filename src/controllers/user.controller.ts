@@ -3,15 +3,6 @@ import { UserService } from "../services/user.service.js";
 import type { AuthRequest } from "../middleware/auth.middleware.js";
 
 export const UserController = {
-  getAllUsers: async (req: Request, res: Response) => {
-    try {
-      const users = await UserService.findAll();
-      res.status(200).json(users);
-    } catch (error) {
-      res.status(500).json({ message: "Erro ao buscar usuários." });
-    }
-  },
-
   getUser: async (req: AuthRequest, res: Response) => {
     try {
       const id = req.user?.userId;

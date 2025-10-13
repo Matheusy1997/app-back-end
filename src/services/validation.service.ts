@@ -9,12 +9,16 @@ export const ValidationService = {
     }
   },
   validatePassword: (password: string): void => {
-    if (!password || typeof password !== 'string') {
+    if (!password || typeof password !== "string") {
       throw new Error("A senha é obrigatória.");
     }
-    // Exemplo: exigir no mínimo 8 caracteres
-    if (password.length < 8) {
-      throw new Error("A senha deve ter pelo menos 8 caracteres.");
+    // Regex para validar a força da senha
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      throw new Error(
+        "A senha deve ter no mínimo 8 caracteres, incluindo uma letra maiúscula, uma minúscula, um número e um caractere especial."
+      );
     }
-  }
+  },
 };

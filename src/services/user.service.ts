@@ -3,10 +3,6 @@ import type { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 export const UserService = {
-  findAll: async (): Promise<User[]> => {
-    return prisma.user.findMany();
-  },
-
   findById: async (id: number): Promise<User | null> => {
     return prisma.user.findUnique({ where: { id } });
   },
