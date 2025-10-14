@@ -7,20 +7,21 @@ import PostRoutes from "./routes/post.routes.js";
 import helmet from "helmet";
 import cors from "cors";
 
+
 const app = express();
 const port = process.env.PORT;
 
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN
+}
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(helmet());
 
 app.use("/api/auth", AuthRouters);
 app.use("/api", UserRoutes);
 app.use("/api", PostRoutes);
-
-app.get("/", (_req: Request, res: Response) => {
-  res.send("Hellow World!");
-});
 
 app.listen(port, () => {
   console.log(`Servidor rodando em => http://localhost:${port}`);
