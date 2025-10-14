@@ -24,7 +24,7 @@ export const UserService = {
 
   updateByEmail: async (
     email: string,
-    data: Omit<User, "id" | "updatedAt">
+    data: Omit<User, "id" | "updatedAt" | 'createdAt'>
   ): Promise<User> => {
     return prisma.user.update({
       where: { email },

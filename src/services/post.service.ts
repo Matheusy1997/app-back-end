@@ -20,8 +20,8 @@ export const PostService = {
     return prisma.post.create({ data: post });
   },
 
-  deletePostById: async (id: number): Promise<Post> => {
-    return prisma.post.delete({ where: { id } });
+  deletePostById: async (id: number, authorId: number): Promise<Post> => {
+    return prisma.post.delete({ where: { id, authorId } });
   },
 
   updatePost: async(id:number, post: Omit<Post, "id" | "createdAt" | "updatedAt" | "authorId">): Promise<Post> => {
