@@ -4,11 +4,13 @@ import jwt, { type JwtPayload } from "jsonwebtoken";
 // 1. (Opcional, mas recomendado) Crie uma interface para o payload do seu token
 interface MyTokenPayload extends JwtPayload {
   userId: number;
+  userName: string;
+  userEmail: string;
 }
 
 // Interface para estender o objeto Request do Express
 export interface AuthRequest extends Request {
-  user?: { userId: number };
+  user?: { userId: number, userName: string, userEmail: string  };
 }
 
 export const authMiddleware = (
@@ -35,7 +37,7 @@ export const authMiddleware = (
       token,
       process.env.JWT_SECRET as string
     ) as unknown as MyTokenPayload;
-    req.user = { userId: decoded.userId };
+    req.user = { userId: decoded.userId, userName: decoded.userName, userEmail: decoded.userEmail };
     next();
   } catch (error) {
     res.status(401).json({ message: "token inválido." });

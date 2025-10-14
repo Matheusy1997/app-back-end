@@ -20,7 +20,7 @@ export const AuthService = {
     }
 
     const token = jwt.sign(
-      { userId: user.id },
+      { userId: user.id, userName: user.name, userEmail: user.email },
       process.env.JWT_SECRET as string,
       { expiresIn: "1h" }
     );
