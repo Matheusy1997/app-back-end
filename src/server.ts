@@ -7,13 +7,12 @@ import PostRoutes from "./routes/post.routes.js";
 import helmet from "helmet";
 import cors from "cors";
 
-
 const app = express();
 const port = process.env.PORT;
 
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN
-}
+  origin: "https://blog-xi-rosy.vercel.app",
+};
 
 app.use(cors(corsOptions));
 app.use(express.json());
