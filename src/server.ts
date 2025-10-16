@@ -10,8 +10,16 @@ import cors from "cors";
 const app = express();
 const port = process.env.PORT;
 
+const allowedOrigins = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : []
+
 const corsOptions = {
-  origin: "https://blog-xi-rosy.vercel.app",
+  origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
+    if(!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Não permitido pelo CORS'));
+    }
+  } 
 };
 
 app.use(cors(corsOptions));

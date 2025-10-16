@@ -12,7 +12,12 @@ export const PostController = {
       }
       res.status(200).json(post);
     } catch (error) {
-      res.status(500).json({ message: error });
+      console.error("ERRO DETALHADO:", error);
+      if (error instanceof Error) {
+        res.status(500).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Ocorreu um erro desconhecido." });
+      }
     }
   },
 
@@ -38,7 +43,12 @@ export const PostController = {
       const newPost = await PostService.create(post);
       res.status(201).json(newPost);
     } catch (error) {
-      res.status(500).json({ message: error });
+      console.error("ERRO DETALHADO:", error);
+      if (error instanceof Error) {
+        res.status(500).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Ocorreu um erro desconhecido." });
+      }
     }
   },
 
@@ -55,7 +65,12 @@ export const PostController = {
 
       res.status(200).json({ message: "Publicação deletado com sucesso." });
     } catch (error) {
-      res.status(500).json({ message: error });
+      console.error("ERRO DETALHADO:", error);
+      if (error instanceof Error) {
+        res.status(500).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Ocorreu um erro desconhecido." });
+      }
     }
   },
 
@@ -74,9 +89,12 @@ export const PostController = {
       });
       res.status(201).json(newUser);
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Não foi possivel atualizar o usuário." });
+      console.error("ERRO DETALHADO:", error);
+      if (error instanceof Error) {
+        res.status(500).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Ocorreu um erro desconhecido." });
+      }
     }
   },
 };

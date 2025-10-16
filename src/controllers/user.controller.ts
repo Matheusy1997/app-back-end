@@ -9,9 +9,17 @@ export const UserController = {
     try {
       const id = req.user?.userId as number;
       const user = await UserService.findById(id);
+      if(!user) {
+        throw new Error("Usuáio não encontrado")
+      }
       res.status(200).json(user);
     } catch (error) {
-      res.status(500).json({ message: "Erro ao buscar usuário." });
+      console.error("ERRO DETALHADO:", error);
+      if (error instanceof Error) {
+        res.status(500).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Ocorreu um erro desconhecido." });
+      }
     }
   },
 
@@ -25,9 +33,13 @@ export const UserController = {
       const newUser = await UserService.create({ email, name, password });
 
       res.status(201).json(newUser);
-
     } catch (error) {
-      res.status(500).json({ message: error });
+      console.error("ERRO DETALHADO:", error);
+      if (error instanceof Error) {
+        res.status(500).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Ocorreu um erro desconhecido." });
+      }
     }
   },
 
@@ -50,7 +62,12 @@ export const UserController = {
 
       res.status(200).json({ message: "Usuário deletado com sucesso." });
     } catch (error) {
-      res.status(500).json({ message: error });
+      console.error("ERRO DETALHADO:", error);
+      if (error instanceof Error) {
+        res.status(500).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Ocorreu um erro desconhecido." });
+      }
     }
   },
 
@@ -60,13 +77,16 @@ export const UserController = {
       const newUser = await UserService.updateByEmail(email, {
         name,
         email,
-        password
+        password,
       });
       res.status(201).json(newUser);
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Não foi possivel atualizar o usuário." });
+      console.error("ERRO DETALHADO:", error);
+      if (error instanceof Error) {
+        res.status(500).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: "Ocorreu um erro desconhecido." });
+      }
     }
   },
 };
